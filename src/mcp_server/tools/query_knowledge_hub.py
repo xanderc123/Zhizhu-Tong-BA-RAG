@@ -35,13 +35,14 @@ logger = logging.getLogger(__name__)
 
 # Tool metadata
 TOOL_NAME = "query_knowledge_hub"
-TOOL_DESCRIPTION = """Search the knowledge base for relevant documents.
+TOOL_DESCRIPTION = """Search the building intelligence knowledge base for relevant documents.
 
-This tool uses hybrid search (semantic + keyword) to find the most relevant 
-documents matching your query. Results include source citations for reference.
+This tool uses hybrid search (semantic + keyword) to find the most relevant
+documents matching your query, including equipment manuals, construction standards,
+BMS/BAS operation guides, and project specifications. Results include source citations.
 
 Parameters:
-- query: Your search question or keywords
+- query: Your search question or keywords (e.g. equipment specs, GB standards, operation procedures)
 - top_k: Maximum number of results (default: 5)
 - collection: Limit search to a specific document collection
 """

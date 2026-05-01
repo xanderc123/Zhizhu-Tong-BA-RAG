@@ -1,36 +1,36 @@
 {
-  "description": "Golden test set for Modular RAG MCP Server evaluation. Contains test queries with expected chunk IDs for IR metrics and optional reference answers for LLM-as-Judge metrics.",
-  "version": "1.0",
+  "description": "建筑智能化 RAG 知识库评估 Golden Test Set。包含面向 BAS/BMS/弱电系统及国家标准的典型查询，用于 IR 指标（Hit Rate/MRR）和 LLM-as-Judge 指标（Faithfulness/Answer Relevancy）评估。",
+  "version": "1.1",
   "test_cases": [
     {
-      "query": "What is Modular RAG?",
+      "query": "楼宇自控系统（BAS）对中央管理工作站的响应时间有什么要求？",
       "expected_chunk_ids": [],
       "expected_sources": [],
-      "reference_answer": "Modular RAG is a Retrieval-Augmented Generation system built with modular, pluggable components that can be configured and swapped independently."
+      "reference_answer": "根据 GB 50339 智能建筑工程质量验收规范，楼宇自控系统中央管理工作站对现场控制器的响应时间一般应不大于 2 秒，报警信息响应时间应不大于 5 秒，具体要求以所执行的国家标准或设计文件为准。"
     },
     {
-      "query": "How to configure Azure OpenAI?",
+      "query": "BMS 系统中 DDC 控制器的主要功能是什么？",
       "expected_chunk_ids": [],
       "expected_sources": [],
-      "reference_answer": "Configure Azure OpenAI by setting the provider to 'azure' in settings.yaml, along with the deployment_name, azure_endpoint, api_version, and api_key fields."
+      "reference_answer": "DDC（直接数字控制器）是 BMS 系统的现场控制单元，负责采集传感器数据（温度、湿度、压力等）、执行预设控制逻辑（PID 调节、时序控制、联动控制）、驱动执行器（阀门、风机变频器等），并通过 BACnet 或 Modbus 协议与上位机通信，实现对 HVAC 等机电系统的自动化管理。"
     },
     {
-      "query": "What is hybrid search and how does it work?",
+      "query": "智能建筑弱电系统施工验收包含哪些子系统？",
       "expected_chunk_ids": [],
       "expected_sources": [],
-      "reference_answer": "Hybrid search combines dense retrieval (semantic embeddings) and sparse retrieval (BM25 keyword matching), then fuses results using Reciprocal Rank Fusion (RRF) for better recall."
+      "reference_answer": "智能建筑弱电系统施工验收通常涵盖：楼宇自控系统（BAS）、火灾自动报警系统（FAS）、安全防范系统（包括视频监控、门禁、入侵报警）、综合布线系统、公共广播系统、停车场管理系统等，验收依据 GB 50339、GB 50116 等国家标准执行。"
     },
     {
-      "query": "Explain the chunking strategy",
+      "query": "HVAC 空调机组的 PID 控制参数如何整定？",
       "expected_chunk_ids": [],
       "expected_sources": [],
-      "reference_answer": "Documents are split into chunks using configurable strategies (recursive, semantic, or fixed-length). Chunks are then refined and enriched with metadata before storage."
+      "reference_answer": "空调机组 PID 参数整定通常采用临界比例度法或工程经验法：先将积分和微分置零，逐步增大比例增益至系统临界振荡，记录临界增益 Ku 和振荡周期 Tu，再按 Ziegler-Nichols 公式计算 P/I/D 参数。实际工程中需结合被控对象的惯性时间和纯滞后时间进行修正，并在现场调试阶段根据实际运行效果微调。"
     },
     {
-      "query": "What evaluation metrics are supported?",
+      "query": "视频监控系统联网标准 GB/T 28181 规定了哪些核心传输协议？",
       "expected_chunk_ids": [],
       "expected_sources": [],
-      "reference_answer": "The system supports hit_rate, MRR (custom metrics), and Ragas LLM-as-Judge metrics including faithfulness, answer_relevancy, and context_precision."
+      "reference_answer": "GB/T 28181《公共安全视频监控联网系统信息传输、交换、控制技术要求》规定联网系统采用 SIP 协议（基于 RFC 3261）作为信令控制协议，媒体流传输采用 RTP/RTCP 协议，并要求支持 PS（节目流）封装格式传输 H.264/H.265 视频编码数据，同时规定了设备注册、实时视音频点播、历史视音频回放等核心业务流程。"
     }
   ]
 }

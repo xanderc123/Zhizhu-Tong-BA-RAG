@@ -1,6 +1,6 @@
-# Modular RAG MCP Server
+# 建筑智能化 RAG MCP Agent
 
-> 一个可插拔、可观测的模块化 RAG（检索增强生成）服务框架，通过 MCP（Model Context Protocol）协议对外暴露工具接口，支持 Copilot / Claude 等 AI 助手直接调用。同时也是一份专为**大模型相关岗位学习与面试求职**设计的实战项目与配套教学资源。
+> 一个面向建筑智能化行业的可插拔、可观测 RAG 知识库服务框架，通过 MCP（Model Context Protocol）协议对外暴露工具接口，支持 AI 助手直接检索设备手册、施工规范、BMS 操作指南等技术文档。同时也是一份专为**大模型相关岗位学习与面试求职**设计的实战项目与配套教学资源。
 
 ---
 
@@ -20,7 +20,9 @@
 
 ### 这个项目是什么
 
-本项目将 RAG 面试中最常见的核心环节——**检索（Hybrid Search + Rerank）**、**多模态视觉处理（Image Captioning）**、**RAG 评估（Ragas + Custom）**、**生成（LLM Response）**——以及当下热门的应用协议 **MCP（Model Context Protocol）** 串联为一个完整的、可运行的工程项目。
+本项目以**建筑智能化行业**为业务背景，将楼宇自控（BAS）、建筑管理系统（BMS）、智能弱电系统操作手册、施工验收规范（GB/T 国标）、设备参数手册等技术文档作为知识源，构建企业级 RAG 知识检索服务。
+
+项目将 RAG 面试中最常见的核心环节——**检索（Hybrid Search + Rerank）**、**多模态视觉处理（Image Captioning）**、**RAG 评估（Ragas + Custom）**、**生成（LLM Response）**——以及当下热门的应用协议 **MCP（Model Context Protocol）** 串联为一个完整的、可运行的工程项目。
 
 **项目的一大亮点是极易适配到你自己的业务中**。得益于全链路可插拔架构，你可以快速将它结合到自己已有的项目里，无论你的背景和需求如何，都能找到适合自己的使用方式。具体的使用策略会在后文 [谁适合用这个项目 & 怎么用](#-谁适合用这个项目--怎么用) 中详细展开。
 
@@ -241,68 +243,68 @@ Skill 采用 **"写作原则 + 项目亮点 + 用户画像 = 定制化简历"** 
 3. **四段式生成**：严格按 **背景 → 目标 → 过程 → 结果** 结构输出，每条 bullet 遵循"动词开头 + 技术细节 + 量化效果"
 4. **面试追问预测**：自动生成 3-5 条面试官可能的追问，帮你提前准备
 
-### 示例一：校招 · RAG Engineer 方向
+### 示例一：校招 · 建筑智能化 RAG Engineer 方向
 
-> 以下为 Skill 基于"校招、RAG 方向、通用框架模式"生成的示例输出：
+> 以下为 Skill 基于"校招、RAG 方向、建筑智能化业务背景"生成的示例输出：
 
-**智能知识检索与问答系统** | 2024.09 - 2025.02 | 独立设计与开发
+**建筑智能化技术文档检索系统** | 2024.09 - 2025.02 | 独立设计与开发
 
-**背景**：针对企业级知识库场景中文档分散、检索精度不足、AI 应用难以接入私有知识的共性痛点，设计并实现了模块化 RAG 检索框架。
+**背景**：针对建筑智能化系统集成商内部技术文档分散的痛点——设备手册、施工验收规范（GB/T 国标）、BMS 操作指南分布于多个系统，工程师现场查询效率低下且无法语义检索，设计并实现了模块化 RAG 检索框架。
 
-**目标**：构建基于混合检索 + MCP 协议的智能知识问答系统，实现精准语义检索与 AI Agent 直接调用私有知识库的能力，将文档问答准确率提升至 90% 以上。
+**目标**：构建基于混合检索 + MCP 协议的智能技术文档问答系统，实现设备型号参数、规范条款、操作步骤的精准语义检索，支持 AI 助手直接调用私有技术知识库，将文档查询准确率提升至 90% 以上。
 
 **过程**：
-- 设计 BM25 + Dense Embedding 混合召回架构，通过 RRF 融合排序平衡查全率与查准率，结合 Cross-Encoder 重排序将 Top-10 命中率提升约 25%
-- 构建全链路 Ingestion Pipeline（PDF 解析 → Markdown → 语义分块 → Metadata 增强 → Embedding → Upsert），集成 Vision LLM 实现图片自动描述并缝合进 Chunk，复用纯文本链路即可"搜文字出图"
+- 设计 BM25 + Dense Embedding 混合召回架构，通过 RRF 融合排序兼顾设备型号等专有名词的精确匹配与语义近义检索，结合 Cross-Encoder 重排序将 Top-10 命中率提升约 25%
+- 构建全链路 Ingestion Pipeline（PDF 解析 → Markdown → 语义分块 → Metadata 增强 → Embedding → Upsert），集成 Vision LLM 实现设备接线图、系统拓扑图等自动描述并缝合进 Chunk，复用纯文本链路即可"搜文字出图"
 - 实现 LLM / Embedding / Reranker / VectorStore 全链路可插拔架构，定义统一抽象接口，通过配置文件一键切换后端 Provider，支持 4+ LLM Provider 零代码切换
 - 集成 Ragas + Custom 双评估体系，建立 Golden Test Set 回归测试机制，覆盖 Faithfulness / Relevancy / Recall 等维度，拒绝"凭感觉"调优
 - 基于 Skill 驱动全流程开发，通过 auto-coder / qa-tester / setup / package 等 5 大 Agent Skill 覆盖编码、测试、配置、打包完整生命周期，2 个月业余时间完成 68 个子任务的全量交付
 
-**结果**：系统支撑 5000+ 篇文档的实时语义检索，检索准确率（Hit Rate@10）达 92%，端到端查询延迟控制在 800ms 以内，三层测试体系（Unit / Integration / E2E）覆盖 1200+ 测试用例。
+**结果**：系统支撑 5000+ 篇技术文档的实时语义检索，检索准确率（Hit Rate@10）达 92%，端到端查询延迟控制在 800ms 以内，三层测试体系（Unit / Integration / E2E）覆盖 1200+ 测试用例。
 
 **技术栈**：Python / LangChain / ChromaDB / BM25 / Cross-Encoder / MCP Protocol / Streamlit / Ragas / Azure OpenAI
 
-### 示例二：社招 · 已有 Agent 项目，融入 RAG 深度
+### 示例二：社招 · 建筑智能化系统集成商，Agent + RAG 方向
 
-> 以下为 Skill 基于"社招、Agent 方向、Windows 平台开发业务背景"生成的示例输出（将 RAG 能力融入已有 Agent 项目）：
+> 以下为 Skill 基于"社招、Agent 方向、BMS/BAS 系统集成业务背景"生成的示例输出：
 
-**Windows 平台智能知识助手** | 2024.06 - 2025.02 | 核心开发
+**楼宇智能化知识检索 Agent** | 2024.06 - 2025.02 | 核心开发
 
-**背景**：在 Windows 平台开发团队中，版本发布相关信息（Release Notes、变更日志、补丁公告、兼容性说明等）分散于多个 Wiki、文档仓库和内部系统，工程师排查版本差异或回答客户问题时需跨系统翻找，现有关键词搜索无法理解语义，导致检索效率低、信息遗漏频发。
+**背景**：在某建筑智能化系统集成公司，楼宇自控（BAS）、暖通控制、门禁消防等子系统的产品手册、调试手册和施工规范（累计 8000+ 篇）分散于各供应商文档库，现场工程师排查设备故障或查阅验收标准时需跨系统手动翻找，关键词搜索无法理解"DDC 控制器"与"直接数字控制"等技术术语的语义关联，导致检索效率低、遗漏频发。
 
-**目标**：为团队构建基于 Agent + RAG 架构的智能知识助手，实现跨系统文档的语义检索与自动问答，通过 MCP 协议集成至工程师日常工具链（VS Code / Claude Desktop），将文档查找时间缩短 60% 以上。
+**目标**：为工程部门构建基于 Agent + RAG 架构的智能技术文档助手，通过 MCP 协议集成至工程师日常工具链（VS Code / Claude Desktop），实现设备参数查询、规范条款检索、故障排查的语义化自动问答，将文档查找时间缩短 60% 以上。
 
 **过程**：
 - 设计 Agent + RAG 分层架构，Agent 端负责意图识别与 Tool Calling，RAG 端提供 BM25 + Dense Embedding 混合召回 + Cross-Encoder 精排的两段式检索能力，通过 MCP 协议暴露标准化工具接口供 Agent 调用
-- 实现全链路 Ingestion Pipeline，支持 PDF / Markdown 多格式文档解析，集成 Vision LLM 自动生成图片描述（架构图、截图等），解决"搜文字出图"的多模态检索需求
-- 构建可插拔后端架构，LLM / Embedding / Reranker / VectorStore 均定义抽象接口，支持 Azure OpenAI ↔ DeepSeek ↔ Ollama 一键切换，适配团队不同网络环境
+- 实现全链路 Ingestion Pipeline，支持 PDF / Markdown 多格式文档解析，集成 Vision LLM 自动生成设备接线图、系统架构图等图片描述，解决"搜文字出图"的多模态检索需求
+- 构建可插拔后端架构，LLM / Embedding / Reranker / VectorStore 均定义抽象接口，支持 Azure OpenAI ↔ DeepSeek ↔ Ollama 一键切换，适配现场网络受限的部署环境
 - 搭建 Streamlit Dashboard 管理平台，提供数据浏览、Ingestion 追踪、查询追踪、评估面板六大功能页，实现全链路白盒化可观测
-- 集成 Ragas 评估框架 + Golden Test Set 回归测试，在版本迭代中持续监控检索质量，Faithfulness 评分稳定在 0.85 以上
+- 集成 Ragas 评估框架 + Golden Test Set 回归测试，持续监控检索质量，Faithfulness 评分稳定在 0.85 以上
 - 采用 Skill 驱动全流程开发模式，编写 DEV_SPEC 规格文档驱动 auto-coder 自动编码、qa-tester 自动测试与修复、setup 一键环境配置，5 大 Agent Skill 覆盖完整开发生命周期，2 个月业余时间完成 68 个子任务交付
 
-**结果**：系统覆盖团队 8000+ 篇技术文档，工程师日均文档查询时间从 15 分钟缩短至 3 分钟，检索准确率 Hit Rate@10 达 90%，已通过 MCP 协议接入 3 个内部 AI 工具，累计处理查询 2 万+ 次。
+**结果**：系统覆盖 8000+ 篇技术文档，工程师现场文档查询时间从 15 分钟缩短至 3 分钟，检索准确率 Hit Rate@10 达 90%，已通过 MCP 协议接入 3 个内部 AI 工具，累计处理查询 2 万+ 次。
 
 **技术栈**：Python / Agent / Tool Calling / RAG / BM25 / Dense Retrieval / Cross-Encoder / MCP Protocol / ChromaDB / Streamlit / Ragas / Skill-Driven Development / Azure OpenAI
 
-### 示例三：社招 · 后端工程师转 AI 方向
+### 示例三：社招 · 传统建筑/工程背景转 AI 方向
 
-> 以下为 Skill 基于"社招转 AI、后端/架构方向、金融合规业务背景"生成的示例输出：
+> 以下为 Skill 基于"社招转 AI、建筑工程/设备运维背景"生成的示例输出：
 
-**合规智能文档检索系统** | 2024.10 - 2025.02 | 设计与主导开发
+**智能化设备运维知识检索系统** | 2024.10 - 2025.02 | 设计与主导开发
 
-**背景**：在某金融机构合规部门，法规文件和内部政策文档持续增长至万级规模，合规团队在审查和咨询场景中需要快速定位特定条款，但现有全文搜索系统只能精确匹配关键词，无法理解"反洗钱"与"AML"等语义近义表达，条款定位效率低下。
+**背景**：在某建筑智能化运维团队，楼宇设备（暖通、电气、弱电）的运维手册、故障案例库和国标规范持续积累至万级规模，运维工程师处理故障时需快速定位特定设备的维保步骤或排查指引，但现有系统只能关键词匹配，无法理解"FCU 故障"与"风机盘管异常"等专业术语的语义关联，设备停机响应时间过长。
 
-**目标**：设计并实现模块化 RAG 检索系统，将语义检索能力引入合规文档管理流程，支持近义词、跨语言条款匹配，目标将合规条款定位准确率提升至 90% 以上。
+**目标**：设计并实现模块化 RAG 检索系统，将语义检索能力引入设备运维知识管理流程，支持同义词、专业术语的跨语义匹配，目标将故障排查文档定位准确率提升至 90% 以上。
 
 **过程**：
 - 主导系统架构设计，采用全链路可插拔架构，LLM / Embedding / Reranker / Splitter / VectorStore 均定义抽象接口与工厂模式，通过 YAML 配置一键切换后端，零代码修改即可适配不同部署环境
-- 实现 BM25 稀疏检索 + Dense Embedding 语义检索的混合召回策略，通过 RRF 融合排序兼顾专有名词精确匹配与语义近义匹配，检索准确率较纯向量方案提升 22%
+- 实现 BM25 稀疏检索 + Dense Embedding 语义检索的混合召回策略，通过 RRF 融合排序兼顾设备型号等专有名词精确匹配与语义近义匹配，检索准确率较纯向量方案提升 22%
 - 构建完整的数据摄取管线，支持 PDF 解析 → 语义分块 → Chunk Refinement → Metadata Enrichment → 向量化存储，实现 DocumentManager 幂等管理，保证文档更新时的数据一致性
 - 搭建三层测试体系（Unit / Integration / E2E），覆盖 1200+ 测试用例，集成 Ragas 评估框架建立自动化回归机制，确保迭代过程中检索质量不退化
 - 基于 MCP 协议暴露标准化工具接口，支持 GitHub Copilot / Claude Desktop 等 AI 助手直接调用，实现"一次开发、多端调用"的服务化部署
 - 实践 Skill 驱动全流程工程化方法，基于 DEV_SPEC 规格文档驱动 AI Agent 自动完成编码（auto-coder）、测试（qa-tester）、环境配置（setup）、清理打包（package），68 个子任务全量由 Agent 交付，开发周期压缩至 2 个月业余时间
 
-**结果**：系统上线后支撑 12000+ 篇合规文档的实时语义检索，条款定位准确率从 68% 提升至 91%，单次查询延迟控制在 700ms，合规团队文档审查效率提升约 50%。
+**结果**：系统支撑 12000+ 篇运维文档的实时语义检索，设备故障排查文档定位准确率从 68% 提升至 91%，单次查询延迟控制在 700ms，运维团队故障响应效率提升约 50%。
 
 **技术栈**：Python / 可插拔架构 / 工厂模式 / BM25 / Dense Retrieval / RRF / Cross-Encoder / ChromaDB / MCP Protocol / Streamlit / Ragas / Skill-Driven Development / Azure OpenAI
 

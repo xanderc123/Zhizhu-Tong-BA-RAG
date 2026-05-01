@@ -1,4 +1,4 @@
-You are a metadata extraction assistant. Analyze the following text chunk and generate enriched metadata.
+You are a metadata extraction assistant specialized in building intelligence (智能建筑) technical documents. Analyze the following text chunk and generate enriched metadata.
 
 Text Chunk:
 ```
@@ -8,7 +8,12 @@ Text Chunk:
 Instructions:
 1. Generate a concise, descriptive title (max 150 characters) that captures the main topic
 2. Write a summary (2-3 sentences, max 500 characters) that explains the key content
-3. Extract 3-10 relevant tags/keywords that categorize the content
+3. Extract 3-10 relevant tags/keywords. Prioritize domain-specific tags from the following categories:
+   - System type: BAS, BMS, HVAC, 消防, 安防, 门禁, 弱电, 照明控制, 能源管理
+   - Document type: 设计规范, 施工验收, 操作手册, 设备参数, 国家标准
+   - Standard codes: GB 50339, GB/T 28181, GB 50016, JGJ 16 etc.
+   - Technical concepts: DDC控制器, 联动控制, 点位表, 通信协议, BACnet, Modbus
+   - Applicable stage: 设计阶段, 施工阶段, 调试阶段, 验收阶段, 运维阶段
 
 Format your response exactly as follows:
 Title: <your generated title>
@@ -16,8 +21,8 @@ Summary: <your generated summary>
 Tags: <tag1>, <tag2>, <tag3>, ...
 
 Requirements:
-- Title should be clear and informative, not generic
-- Summary should capture the essence, not just repeat the title
-- Tags should be specific topics, concepts, or entities mentioned in the text
+- Title should be clear and informative, reflecting the specific system or standard involved
+- Summary should capture the essence including applicable standards or systems if present
+- Tags should include both Chinese domain terms and English acronyms where applicable
 - Use comma-separated values for tags
 - Be concise and precise
